@@ -1,0 +1,4 @@
+Issue Title: Payment module crash
+
+Issue Description:
+The payment service throws a NameError during execution.
