@@ -30,17 +30,25 @@ def run_agent(issue_title, issue_description):
 
 @app.post("/webhook")
 async def github_webhook(
-    issue: GitHubIssue,
+    payload: dict,
     background_tasks: BackgroundTasks
 ):
 
+    if payload.get("action") != "opened":
+        return {"message": "Ignoring event"}
+
+    issue = payload.get("issue", {})
+
+    title = issue.get("title", "")
+    description = issue.get("body", "")
+
     background_tasks.add_task(
         run_agent,
-        issue.title,
-        issue.description
+        title,
+        description
     )
 
     return {
         "status": "accepted",
-        "message": "Issue is being processed asynchronously"
+        "message": "GitHub issue received"
     }

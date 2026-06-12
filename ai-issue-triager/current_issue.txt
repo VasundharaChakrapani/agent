@@ -1,4 +1,4 @@
-Issue Title: Payment module crash
+Issue Title: Billing module crash
 
 Issue Description:
-The payment service throws a NameError during execution.
+error during execution
